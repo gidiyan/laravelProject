@@ -13,6 +13,12 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        \DB::statement("TRUNCATE TABLE categories");
+        \DB::statement("TRUNCATE TABLE posts");
+        $this->call([
+            CategoriesTableSeeder::class,
+            PostsTableSeeder::class
+        ]);
         // \App\Models\User::factory(10)->create();
     }
 }

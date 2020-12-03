@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
-class ContactController extends Controller
+class BlogController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,12 +14,13 @@ class ContactController extends Controller
      */
     public function index()
     {
-        $title = 'Contact';
+        $title = 'Blog';
         $time = date("F j, Y, g:i a");
         $filename ='..\app\Http\Controllers\BlogController.php';
         $createTime = date("F j, Y, g:i a",filectime($filename));
-        return view('contact.index',compact('title','time','createTime'));
+        return view('blog.index',compact('title','time','createTime'));
     }
+
 
     /**
      * Show the form for creating a new resource.

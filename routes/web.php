@@ -18,3 +18,11 @@ Route::get('/', function () {
 });
 Route::get('about', "App\Http\Controllers\AboutController@index")->name('about');
 Route::resource('contact','\App\Http\Controllers\ContactController');
+Route::resource('blog','\App\Http\Controllers\BlogController');
+Route::group(['prefix'=>'admin','as'=>'admin.','namespace'=>'\App\Http\Controllers\Admin'], function (){
+    Route::resource('categories','CategoryController');
+});
+Route::group(['prefix'=>'admin','as'=>'admin.','namespace'=>'\App\Http\Controllers\Admin'], function (){
+    Route::resource('posts','PostController');
+});
+
