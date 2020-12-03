@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('index');
 });
 Route::get('about', "App\Http\Controllers\AboutController@index")->name('about');
 Route::resource('contact','\App\Http\Controllers\ContactController');

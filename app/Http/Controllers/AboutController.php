@@ -10,7 +10,7 @@ class AboutController extends Controller
         $title = 'About';
         $time = date("F j, Y, g:i a");
         $filename ='..\app\Http\Controllers\AboutController.php';
-        $createTime = date("F j, Y, g:i a",filectime($filename));
+        $createTime = date("F j, Y, g:i a",filemtime($filename));
         return view('about.index',compact('title','time','createTime'));
     }
 }

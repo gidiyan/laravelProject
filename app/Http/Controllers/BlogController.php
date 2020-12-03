@@ -17,7 +17,7 @@ class BlogController extends Controller
         $title = 'Blog';
         $time = date("F j, Y, g:i a");
         $filename ='..\app\Http\Controllers\BlogController.php';
-        $createTime = date("F j, Y, g:i a",filectime($filename));
+        $createTime = date("F j, Y, g:i a",filemtime($filename));
         return view('blog.index',compact('title','time','createTime'));
     }
 

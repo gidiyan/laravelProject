@@ -118,5 +118,13 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="bootstrap" level="application" />
+    <orderEntry type="library" name="font-awesome" level="application" />
+    <orderEntry type="library" name="magnific-popup.js" level="application" />
+    <orderEntry type="library" name="OwlCarousel2" level="application" />
+    <orderEntry type="library" name="animate.css" level="application" />
+    <orderEntry type="library" name="SlickNav" level="application" />
+    <orderEntry type="library" name="jquery-3.5.1" level="application" />
+    <orderEntry type="library" name="owl-carousel" level="application" />
+    <orderEntry type="library" name="jquery-circle-progress" level="application" />
   </component>
 </module>

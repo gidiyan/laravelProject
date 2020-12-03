@@ -16,7 +16,7 @@ class ContactController extends Controller
         $title = 'Contact';
         $time = date("F j, Y, g:i a");
         $filename ='..\app\Http\Controllers\BlogController.php';
-        $createTime = date("F j, Y, g:i a",filectime($filename));
+        $createTime = date("F j, Y, g:i a",filemtime($filename));
         return view('contact.index',compact('title','time','createTime'));
     }
 
