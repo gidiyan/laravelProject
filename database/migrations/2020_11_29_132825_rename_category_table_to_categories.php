@@ -14,7 +14,7 @@ class RenameCategoryTableToCategories extends Migration
     public function up()
     {
         Schema::table('category', function (Blueprint $table) {
-            Schema::rename('category','categories');
+            Schema::rename('category', 'categories');
         });
     }
 
@@ -26,7 +26,7 @@ class RenameCategoryTableToCategories extends Migration
     public function down()
     {
         Schema::table('categories', function (Blueprint $table) {
-            Schema::rename('categories','category');
+            Schema::rename('categories', 'category');
         });
     }
 }

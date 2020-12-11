@@ -8,25 +8,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Google font -->
-    <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i&display=swap"
+          rel="stylesheet">
 
     <!-- Stylesheets -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"/>
-
-
-
 </head>
+
 <body class="bg-dark text-white">
 
 <!-- Header section -->
-<header class="bg-light font-weight-bold mb-2 mt-2">
-    <ul class="d-inline-flex justify-content-around list-unstyled my-auto" style="width: 90vw">
-        <li><a href="{{url ('/')}}">Home</a></li>
-        <li><a href="{{url ('blog')}}">Blog</a></li>
-        <li><a href="{{url ('contact')}}">Contact</a></li>
-        <li><a href="{{url ('about')}}">About</a></li>
-    </ul>
+<header class="bg-secondary font-weight-bold mb-2 mt-2">
+    <div class="navbar">
+        <ul class="navbar-custom d-inline-flex justify-content-around list-unstyled my-auto" style="width: 90vw">
+            <li><img src="#">logo</li>
+            <li><a href="{{url ('/')}}">Home</a></li>
+            <li><a href="{{url ('blog')}}">Blog</a></li>
+            <li><a href="{{url ('contact')}}">Contact</a></li>
+            <li><a href="{{url ('about')}}">About</a></li>
+        </ul>
+    </div>
 </header>
 <!-- Header section end -->
 
@@ -37,12 +39,13 @@
 <!-- Blog section -->
 <section class="blog-section spad">
     <div class="container">
+        <h2>Blog section</h2>
         <div class="row">
             <div class="col-lg-8 blog-posts bg-white text-dark">
-main section
+                main section
             </div>
             <div class="col-lg-4 sidebar bg-light text-dark">
-side section
+                side section
             </div>
         </div>
     </div>
@@ -52,13 +55,13 @@ side section
 <!-- Blog list section -->
 <section class="blog-list-section spad">
     <div class="container">
+        <h2>Blog list section</h2>
         <div class="row">
-            <div class="col-lg-8">
-
+            <div class="col-lg-8 blog-posts bg-white text-dark">
+                main section
             </div>
-            <div class="col-lg-4">
-
-
+            <div class="col-lg-4 sidebar bg-light text-dark">
+                side section
             </div>
         </div>
     </div>
@@ -112,24 +115,24 @@ side section
             </div>
         </div>
 
-    <div class="social-links-warp">
-        <div class="container">
-            <div class="social-links d-inline-flex justify-content-around" style="width: 90vw">
-                <a href="#"><i class="fab fa-instagram-square"></i><span>instagram</span></a>
-                <a href="#"><i class="fab fa-pinterest-square"></i><span>pinterest</span></a>
-                <a href="#"><i class="fab fa-facebook-square"></i><span>facebook</span></a>
-                <a href="#"><i class="fab fa-twitter-square"></i><span>twitter</span></a>
-                <a href="#"><i class="fab fa-youtube-square"></i><span>youtube</span></a>
-                <a href="#"><i class="fab fa-tumblr-square"></i><span>tumblr</span></a>
+        <div class="social-links-warp">
+            <div class="container">
+                <div class="social-links d-inline-flex justify-content-around" style="width: 90vw">
+                    <a href="#"><i class="fab fa-instagram-square"></i><span>instagram</span></a>
+                    <a href="#"><i class="fab fa-pinterest-square"></i><span>pinterest</span></a>
+                    <a href="#"><i class="fab fa-facebook-square"></i><span>facebook</span></a>
+                    <a href="#"><i class="fab fa-twitter-square"></i><span>twitter</span></a>
+                    <a href="#"><i class="fab fa-youtube-square"></i><span>youtube</span></a>
+                    <a href="#"><i class="fab fa-tumblr-square"></i><span>tumblr</span></a>
+                </div>
             </div>
         </div>
     </div>
-</div>
     <h2>Current time: <?=date("F j, Y, g:i a");?></h2>
-    <h2>File was last modified at <?=date("F j, Y, g:i a",filemtime('..\resources\views\index.blade.php'))?></h2>
-<!-- Footer section end -->
+    <h2>File was last modified at <?=date("F j, Y, g:i a", filemtime('..\resources\views\index.blade.php'))?></h2>
+    <!-- Footer section end -->
 
-<!--====== Javascripts & Jquery ======-->
+    <!--====== Javascripts & Jquery ======-->
 
 </div>
 </body>

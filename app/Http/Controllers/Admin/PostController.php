@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Post;
+use App\Models\User;
+use App\Models\Category;
 
 class PostController extends Controller
 {
@@ -14,7 +17,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = \DB::select("SELECT * FROM posts");
+        $posts = Post::paginate(10);
         return view('admin.posts.index', compact('posts'));
     }
 
@@ -25,9 +28,9 @@ class PostController extends Controller
      */
     public function create()
     {
-        $categories = \DB::select("SELECT * FROM categories");
-        $users = \DB::select("SELECT * FROM users");
-        return view('admin.posts.create',compact('categories','users'));
+        $categories = Category::all();
+        $users = User::all();
+        return view('admin.posts.create', compact('categories', 'users'));
     }
 
     /**
@@ -39,62 +42,77 @@ class PostController extends Controller
     public function store(Request $request)
     {
         $status = $request->status ? 1 : 0;
-        \DB::insert("INSERT INTO posts (name,status,votes,comments,category_id,user_id,content,created_at,updated_at) VALUES (?,?,?,?,?,?,?,?,?)", [$request->name, $status, $request->votes, $request->comments, $request->category_id, $request->user_id, $request->content, now(), now()]);
+        Post::create(['name' => $request->name, 'status' => $status, 'category_id' => $request->category_id, 'user_id' => $request->user_id, 'content' => $request->content]);
         return redirect()->route('admin.posts.index');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param int $id
+     * @param \App\Models\Post $post
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Post $post)
     {
-        $users = \DB::select("SELECT * FROM users");
-        $categories = \DB::select("SELECT * FROM categories");
-        $post = \DB::select("SELECT * from posts WHERE id = ?", [$id])[0];
-        return view('admin.posts.show', compact('post','users','categories'));
+        $categories = Category::all();
+        $users = User::all();
+        return view('admin.posts.show', compact('post', 'users', 'categories'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param int $id
+     * @param \App\Models\Post $post
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Post $post)
     {
-        $users = \DB::select("SELECT * FROM users");
-        $categories = \DB::select("SELECT * FROM categories");
-        $post = \DB::select("SELECT * FROM posts WHERE id=?", [$id])[0];
-        return view('admin.posts.edit', compact('post','categories','users'));
+        $categories = Category::all();
+        $users = User::all();
+        return view('admin.posts.edit', compact('post', 'categories', 'users'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @param int $id
+     * @param \App\Models\Post $post
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Post $post)
     {
-        $status = $request->status ? 1 : 0;
-        \DB::update("UPDATE posts SET name=?, status =?, votes =?, comments =?, category_id =?, user_id =?, content =?,updated_at=?
-        where id = ?", [$request['name'], $status, $request['votes'], $request['comments'], $request['category_id'], $request['user_id'], $request['content'], now(), $id]);
+        $post->update(['name' => $request->name, 'status' => ($request->status == 'on') ? 1 : 0, 'category_id' => $request->category_id, 'user_id' => $request->user_id, 'content' => $request->content]);
         return redirect()->route('admin.posts.index');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param int $id
+     * @param \App\Models\Post $post
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Post $post)
     {
-        \DB::delete('DELETE FROM posts WHERE id = ?', [$id]);
+        $post->delete();
+        return redirect()->route('admin.posts.index');
+    }
+
+    public function trashed()
+    {
+        $posts = Post::onlyTrashed()->get();
+        return view('admin.posts.trashed', compact('posts'));
+    }
+
+    public function restore($id)
+    {
+        Post::withTrashed()->where('id', $id)->restore();
+        return redirect()->route('admin.posts.index');
+    }
+
+    public function force($id)
+    {
+        $post = Post::withTrashed()->where('id', $id)->first();
+        $post->forceDelete();
         return redirect()->route('admin.posts.index');
     }
 }

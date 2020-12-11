@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -14,7 +15,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = \DB::select("SELECT * FROM categories");
+        $categories = Category::paginate(7);
         return view('admin.categories.index', compact('categories'));
     }
 
@@ -37,31 +38,29 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         $status = $request->status ? 1 : 0;
-        \DB::insert('insert into categories (name,description,status,created_at,updated_at) values (?,?,?,?,?)', [$request->name, $request->description, $status, now(), now()]);
+        Category::create(['name' => $request->name, 'description' => $request->description, 'status' => $status]);
         return redirect()->route('admin.categories.index');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param int $id
+     * @param \App\Models\Category $category
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Category $category)
     {
-        $category = \DB::select("SELECT * from categories WHERE id = ?", [$id])[0];
         return view('admin.categories.show', compact('category'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param int $id
+     * @param \App\Models\Category $category
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Category $category)
     {
-        $category = \DB::select("SELECT * FROM categories WHERE id=?", [$id])[0];
         return view('admin.categories.edit', compact('category'));
     }
 
@@ -69,26 +68,44 @@ class CategoryController extends Controller
      * Update the specified resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @param int $id
+     * @param \App\Models\Category $category
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Category $category)
     {
-        $status = $request->status ? 1 : 0;
-        \DB::update("UPDATE categories SET name=?, description=?, status =?, updated_at=?
-        where id = ?", [$request['name'], $request['description'], $status, now(), $id]);
+        $category->update(['name' => $request->name, 'description' => $request->description, 'status' => ($request->status == 'on') ? 1 : 0]);
         return redirect()->route('admin.categories.index');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param int $id
+     * @param \App\Models\Category $category
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Category $category)
     {
-        \DB::delete('DELETE FROM categories WHERE id = ?', [$id]);
+        $category->delete();
         return redirect()->route('admin.categories.index');
     }
+
+    public function trashed()
+    {
+        $categories = Category::onlyTrashed()->get();
+        return view('admin.categories.trashed', compact('categories'));
+    }
+
+    public function restore($id)
+    {
+        Category::withTrashed()->where('id', $id)->restore();
+        return redirect()->route('admin.categories.index');
+    }
+
+    public function force($id)
+    {
+        $category = Category::withTrashed()->where('id', $id)->first();
+        $category->forceDelete();
+        return redirect()->route('admin.categories.index');
+    }
+
 }

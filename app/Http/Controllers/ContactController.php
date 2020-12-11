@@ -15,9 +15,9 @@ class ContactController extends Controller
     {
         $title = 'Contact';
         $time = date("F j, Y, g:i a");
-        $filename ='..\app\Http\Controllers\BlogController.php';
-        $createTime = date("F j, Y, g:i a",filemtime($filename));
-        return view('contact.index',compact('title','time','createTime'));
+        $filename = '..\app\Http\Controllers\BlogController.php';
+        $createTime = date("F j, Y, g:i a", filemtime($filename));
+        return view('contact.index', compact('title', 'time', 'createTime'));
     }
 
     /**
@@ -33,7 +33,7 @@ class ContactController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -44,7 +44,7 @@ class ContactController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -55,7 +55,7 @@ class ContactController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -66,8 +66,8 @@ class ContactController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -78,7 +78,7 @@ class ContactController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
