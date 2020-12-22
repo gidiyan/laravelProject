@@ -37,7 +37,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        User::create(['name' => $request->name, 'email' => $request->email, 'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi']);
+        User::create(['name' => $request->name, 'emails' => $request->email, 'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi']);
         return redirect()->route('admin.users.index');
     }
 
@@ -72,7 +72,7 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        $user->update(['name' => $request->name, 'email' => $request->email]);
+        $user->update(['name' => $request->name, 'emails' => $request->email]);
     }
 
     /**

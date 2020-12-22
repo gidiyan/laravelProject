@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Product;
+use App\Models\{Product, Brand, Category, Picture};
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Http\Request;
+use Image;
 
 class ProductController extends Controller
 {
@@ -15,7 +18,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::paginate(10);
+
+        $products = Product::paginate(12);
         return view('admin.products.index', compact('products'));
     }
 
@@ -37,9 +41,30 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+        $brands = Brand::all();
+        $categories = Category::all();
         $status = $request->status ? 1 : 0;
         Product::create(['name' => $request->name, 'price' => $request->price, 'details' => $request->details, 'description' => $request->description, 'status' => $status]);
         return redirect()->route('admin.products.index');
+    }
+
+    private function uploadCover(UploadedFile $file) : string
+    {
+        $filename = md5($file->getClientOriginalName() . time()).uniqid('', true);
+        $file->storeAs("public/covers", $filename);
+        return asset("storage/covers/". $filename);
+    }
+
+    public function uploadImage(UploadedFile $file) : string
+    {
+        $img = Image::make($file);
+        $filename = md5($file->getClientOriginalName() . time()).uniqid('', true);
+        $originalPath = 'app/public/products';
+
+        $img->resize(520, 250, function ($constraint) {
+            $constraint->aspectRatio();
+        })->save(storage_path($originalPath)."/".$filename);
+        return asset("storage/products/". $filename);
     }
 
     /**
@@ -57,11 +82,13 @@ class ProductController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param \App\Models\Product $product
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
     public function edit(Product $product)
     {
-        return view('admin.products.edit', compact('product'));
+        $brands = Brand::all();
+        $categories = Category::all();
+        return view('admin.products.edit', compact('product','brands','categories'));
     }
 
     /**
@@ -73,9 +100,29 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        $product->update(['name' => $request->name, 'price' => $request->price, 'details' => $request->details, 'description' => $request->description, 'status' => ($request->status == 'on') ? 1 : 0]);
-        return redirect()->route('admin.products.index');
+        $product->update($request->all());
+
+        if($request->images) {
+            $ids = $request->images;
+            foreach ($ids as $id) {
+                $picture = Picture::where('id', $id)->first();
+                $filename = parse_url($picture->filename, PHP_URL_PATH);
+                Storage::delete("public/products/" . $filename);
+                $product->pictures()->detach($id);
+                $picture->delete();
+            }
+            foreach ($request->images as $file) {
+                $filename = $this->uploadImage($file);
+                $picture = Picture::create([
+                    'filename'=>$filename,
+                ]);
+                $product->pictures()->attach($picture->id);
+            }
+        }
+        $product->category()->sync($request->categories);
+        return redirect()->route('admin.products.index')->withMessage('Product updated successfully');
     }
+
 
     /**
      * Remove the specified resource from storage.

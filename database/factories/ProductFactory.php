@@ -21,15 +21,19 @@ class ProductFactory extends Factory
      */
     public function definition()
     {
+        $brands = \DB::table('brands')->pluck('id');
+        $categories = \DB::table('categories')->pluck('id');
         return [
             'name' => $this->faker->unique()->word(),
             'details' => $this->faker->sentence(),
-            'price' => $this->faker->numberBetween(10, 200),
+            'brand_id' => $this->faker->randomElement($brands),
+            'category_id' => $this->faker->randomElement($categories),
+            'price' => $this->faker->numberBetween(19,499),
             'description' => $this->faker->paragraph(),
             'image' => $this->faker->imageUrl($width = 250, $height = 150, 'cats'),
-            'status' => $this->faker->randomElement([0, 1]),
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
+            'status' =>$this->faker->randomElement([0,1])
         ];
     }
 }

@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,8 +16,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('index');
-});
+    return view('welcome');
+})->name('welcome');
 Route::get('about', "App\Http\Controllers\AboutController@index")->name('about');
 Route::resource('contact', '\App\Http\Controllers\ContactController');
 Route::resource('blog', '\App\Http\Controllers\BlogController');
@@ -43,7 +45,20 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => '\App\Http\C
     Route::delete('users/force/{id}', 'UserController@force')->name('users.force');
     Route::resource('users', 'UserController');
 });
+Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
+    return view('dashboard');
+})->name('dashboard');
 
+Route::get('/shop', 'App\Http\Controllers\ShopController@index')->name('shop.index');
+Route::get('/shop/product/{id}', [App\Http\Controllers\ShopController::class, 'show'])->name('shop.product');
+Route::get('/shop/by_brand/{id}', [App\Http\Controllers\ShopController::class, 'getByBrand'])->name('product.by.brand');
+Route::get('/shop/by_category/{id}', [App\Http\Controllers\ShopController::class, 'getByCategory'])->name('product.by.category');
 
+Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request){
+$request->fulfill();
+return redirect('/dashboard');
+})->middleware(['auth','signed'])->name('verification.verify');
+Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request){
 
-
+    return redirect('/auth.verify-email');
+})->middleware(['auth','signed'])->name('verification.notice');

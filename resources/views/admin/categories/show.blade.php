@@ -1,4 +1,9 @@
 <x-admin.admin-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __('Category Show') }}
+        </h2>
+    </x-slot>
     <div class="row">
         <div class="col-lg-12">
             <strong>Categories Management</strong>

@@ -1,23 +1,64 @@
-@extends('layouts.master')
-@section('styles')
-    @include('layouts.partials.admin._styles')
-@endsection
+<!DOCTYPE html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
-@section('body')
-    <div class="flex h-screen">
-        <!-- sidebar -->
-        <x-admin.sidebar></x-admin.sidebar>
-        <div class="flex-1 flex flex-col overflow-hidden">
-            <header class="main-header">
-                <div class="flex items-center">
-                    <!-- hamburger -->
+    <title>{{ config('app.name', 'Laravel') }}</title>
+
+    <!-- Fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
+    <link rel="stylesheet" href="{{ asset('fontawesome/css/all.min.css') }}">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="{{ mix('css/app.css') }}">
+
+    @livewireStyles
+
+    <!-- Scripts -->
+    <script src="{{ mix('js/app.js') }}" defer></script>
+</head>
+<body class="font-sans antialiased">
+<div class="min-h-screen bg-gray-100">
+    @livewire('admin-navigation')
+
+    <div class="grid grid-cols-6 gap-6">
+        <div class="col-span-2">
+            <x-admin-sidebar></x-admin-sidebar>
+        </div>
+        <div class="col-span-4">
+            @if(session('message'))
+{{--                <x-flash-success :message="session('message')" />--}}
+            @endif
+
+            @if($errors->count() > 0)
+                <ul class="list-unstyled">
+                    @foreach($errors->all() as $error)
+{{--                        <li><x-flash-error :message="$error" /></li>--}}
+                    @endforeach
+                </ul>
+        @endif
+
+            <!-- Page Heading -->
+            <header class="bg-white shadow">
+                <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+                    {{ $header }}
                 </div>
             </header>
-            <main class="flex-1 overflow-x-hidden overflow-y-auto ">
-                <div class="mx-auto px-6 py-8">
-                    {{ $slot }}
-                </div>
+
+            <!-- Page Content -->
+            <main>
+                {{ $slot }}
             </main>
         </div>
     </div>
-@endsection
+
+
+</div>
+
+@stack('modals')
+
+@livewireScripts
+</body>
+</html>

@@ -1,4 +1,9 @@
 <x-admin.admin-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __('Trashed Categories') }}
+        </h2>
+    </x-slot>
     <div class="main-card">
         <div class="header">
             Trashed Categories List

@@ -1,4 +1,9 @@
 <x-admin.admin-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __('Edit Product') }}
+        </h2>
+    </x-slot>
     <div class="row">
         <div class="col-lg-12">
             <strong>Products Management</strong>
@@ -70,6 +75,31 @@
                                     <input type="file"
                                            class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-700 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                            id="image" name="image">
+                                </div>
+                            </div>
+
+                            <div class="flex flex-wrap -mx-3 mb-6">
+                                <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                                <label for="brand" class="block uppercase tracking-wide text-gray-700 text-xs font-bold
+                               mb-2">Select Brand</label>
+                                <select name="brand_id" id="brand_id"
+                                        class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-700 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                                    @foreach($brands as $brand)
+                                    <option value="{{$brand->id}}" {{ ($brand->id === $product->brand_id)? 'selected':'' }}
+                                            class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-700 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">{{$brand->name}}</option>
+                                    @endforeach
+                                </select>
+                                </div>
+                                <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                                    <label for="category" class="block uppercase tracking-wide text-gray-700 text-xs font-bold
+                               mb-2">Select Category</label>
+                                    <select name="categories[]" id="categories" multiple
+                                            class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-700 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                                        @foreach($categories as $category)
+                                            <option value="{{$category->id}}" {{ ($category->id === $product->category_id)? 'selected':'' }}
+                                                    class="border border-gray-700 rounded">{{$category->name}}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
                             <div class="w-full md:w-1/2 px-3 my-4">

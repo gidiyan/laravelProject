@@ -33,8 +33,8 @@
                                placeholder="Email" id="email" name="email"
                                value="{{$user->email}}">
                     </div>
-                    @if($errors->has('email'))
-                        <p class="invalid-feedback">{{ $errors->first('email') }}</p>
+                    @if($errors->has('emails'))
+                        <p class="invalid-feedback">{{ $errors->first('emails') }}</p>
                     @endif
                     <div class="flex justify-center w-full my-2">
                         <button type="submit"

@@ -27,10 +27,10 @@
                         <input type="email"
                                class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-700 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                placeholder="Email" id="email" name="email"
-                               value="{{old('email')}}">
+                               value="{{old('emails')}}">
                     </div>
-                    @if($errors->has('email'))
-                        <p class="invalid-feedback">{{ $errors->first('email') }}</p>
+                    @if($errors->has('emails'))
+                        <p class="invalid-feedback">{{ $errors->first('emails') }}</p>
                     @endif
                     <div class="w-full px-3">
                         <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
