@@ -17,4 +17,10 @@ class Category extends Model
     {
         return $this->belongsToMany(Product::class);
     }
+
+    public static function search($search)
+    {
+        return empty($search) ? static::query() : static::where('id', 'like', '%' . $search . '%')
+            ->orWhere('name', 'like', '%' . $search . '%');
+    }
 }

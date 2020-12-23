@@ -1,9 +1,14 @@
 <x-admin.admin-layout>
-    <div class="main-card">
-        <div class="header">
-            Trashed Products List
-            <a class="btn-sm btn-blue" href="{{route('admin.products.index')}}">Go Back</a>
+    <x-slot name="header">
+        <div class="flex justify-between">
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+                {{ __('Trashed products') }}
+            </h2>
+            <a class="content-center bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent float-right"
+               href="{{route("admin.products.index")}}">Go Back</a>
         </div>
+    </x-slot>
+    <div class="main-card">
         <div class="body">
             <div class="w-full">
                 <table class="striped hover border-separate border border-black shadow-2xl">
@@ -27,12 +32,14 @@
                                 <form action="{{route('admin.products.force', $product->id)}}" method="POST"
                                       style="display: inline-block">
                                     @csrf @method('delete')
-                                    <input type="submit" class="btn-sm btn-red" value="Force Delete">
+                                    <input type="submit" class="btn-sm border border-black rounded bg-red-300"
+                                           value="Force Delete">
                                 </form>
                                 <form action="{{route('admin.products.restore', $product->id)}}" method="POST"
                                       style="display: inline-block">
                                     @csrf
-                                    <input type="submit" class="btn-sm btn-green" value="Restore Product">
+                                    <input type="submit" class="btn-sm border border-black rounded bg-green-300"
+                                           value="Restore Product">
                                 </form>
                             </td>
                         </tr>

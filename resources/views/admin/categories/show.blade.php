@@ -1,20 +1,13 @@
 <x-admin.admin-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Category Show') }}
-        </h2>
-    </x-slot>
-    <div class="row">
-        <div class="col-lg-12">
-            <strong>Categories Management</strong>
+        <div class="flex justify-between">
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+                {{ __('Category Show') }} </h2>
             <a class="content-center bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent float-right"
                href="{{route("admin.categories.index")}}">Go Back</a>
         </div>
-    </div>
+    </x-slot>
     <div class="card">
-        <div class="card-header">
-            Show Category
-        </div>
         <div class="card-body">
             <div class="table-responsive">
                 <fieldset disabled>

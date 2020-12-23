@@ -28,12 +28,12 @@ class ProductFactory extends Factory
             'details' => $this->faker->sentence(),
             'brand_id' => $this->faker->randomElement($brands),
             'category_id' => $this->faker->randomElement($categories),
-            'price' => $this->faker->numberBetween(19,499),
+            'price' => $this->faker->numberBetween(19, 499),
             'description' => $this->faker->paragraph(),
             'image' => $this->faker->imageUrl($width = 250, $height = 150, 'cats'),
             'created_at' => now(),
             'updated_at' => now(),
-            'status' =>$this->faker->randomElement([0,1])
+            'status' => $this->faker->randomElement([0, 1])
         ];
     }
 }

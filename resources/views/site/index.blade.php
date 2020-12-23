@@ -24,7 +24,8 @@
                             <div class="prod-info grid gap-10">
                                 <div class="flex flex-col md:flex-row justify-between items-center text-gray-900 mt-2">
                                     <p class="font-bold text-xl">{{ $product->details }} <br/> By <a
-                                            href="{{ route('product.by.brand', $product->brand->id) }}" class="text-blue-500"> {{ $product->brand->name }}</a>
+                                            href="{{ route('product.by.brand', $product->brand->id) }}"
+                                            class="text-blue-500"> {{ $product->brand->name }}</a>
                                     </p>
 
                                     <a href="{{ route('shop.product', $product->id) }}"
@@ -42,7 +43,8 @@
                                     <ul class="list-reset flex flex-wrap">
                                         @forelse($product->category as $category)
                                             <li class="mr-3">
-                                                <a class="inline-block border border-blue-500 border-opacity-100 rounded py-1 px-3 bg-blue text-red-400" href="{{ route('product.by.category', $category->id) }}">{{ $category->name }}</a>
+                                                <a class="inline-block border border-blue-500 border-opacity-100 rounded py-1 px-3 bg-blue text-red-400"
+                                                   href="{{ route('product.by.category', $category->id) }}">{{ $category->name }}</a>
                                             </li>
                                         @empty
                                             No categories yet

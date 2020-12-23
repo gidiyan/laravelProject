@@ -30,7 +30,9 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('admin.products.create');
+        $brands = Brand::all();
+        $categories = Category::all();
+        return view('admin.products.create', compact('brands', 'categories'));
     }
 
     /**
@@ -48,23 +50,23 @@ class ProductController extends Controller
         return redirect()->route('admin.products.index');
     }
 
-    private function uploadCover(UploadedFile $file) : string
+    private function uploadCover(UploadedFile $file): string
     {
-        $filename = md5($file->getClientOriginalName() . time()).uniqid('', true);
+        $filename = md5($file->getClientOriginalName() . time()) . uniqid('', true);
         $file->storeAs("public/covers", $filename);
-        return asset("storage/covers/". $filename);
+        return asset("storage/covers/" . $filename);
     }
 
-    public function uploadImage(UploadedFile $file) : string
+    public function uploadImage(UploadedFile $file): string
     {
         $img = Image::make($file);
-        $filename = md5($file->getClientOriginalName() . time()).uniqid('', true);
+        $filename = md5($file->getClientOriginalName() . time()) . uniqid('', true);
         $originalPath = 'app/public/products';
 
         $img->resize(520, 250, function ($constraint) {
             $constraint->aspectRatio();
-        })->save(storage_path($originalPath)."/".$filename);
-        return asset("storage/products/". $filename);
+        })->save(storage_path($originalPath) . "/" . $filename);
+        return asset("storage/products/" . $filename);
     }
 
     /**
@@ -75,7 +77,9 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        return view('admin.products.show', compact('product'));
+        $brands = Brand::all();
+        $categories = Category::all();
+        return view('admin.products.show', compact('product', 'brands', 'categories'));
     }
 
     /**
@@ -88,7 +92,7 @@ class ProductController extends Controller
     {
         $brands = Brand::all();
         $categories = Category::all();
-        return view('admin.products.edit', compact('product','brands','categories'));
+        return view('admin.products.edit', compact('product', 'brands', 'categories'));
     }
 
     /**
@@ -102,7 +106,7 @@ class ProductController extends Controller
     {
         $product->update($request->all());
 
-        if($request->images) {
+        if ($request->images) {
             $ids = $request->images;
             foreach ($ids as $id) {
                 $picture = Picture::where('id', $id)->first();
@@ -114,7 +118,7 @@ class ProductController extends Controller
             foreach ($request->images as $file) {
                 $filename = $this->uploadImage($file);
                 $picture = Picture::create([
-                    'filename'=>$filename,
+                    'filename' => $filename,
                 ]);
                 $product->pictures()->attach($picture->id);
             }

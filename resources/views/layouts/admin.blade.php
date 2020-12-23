@@ -29,18 +29,18 @@
         </div>
         <div class="col-span-4">
             @if(session('message'))
-{{--                <x-flash-success :message="session('message')" />--}}
+                {{--                <x-flash-success :message="session('message')" />--}}
             @endif
 
             @if($errors->count() > 0)
                 <ul class="list-unstyled">
                     @foreach($errors->all() as $error)
-{{--                        <li><x-flash-error :message="$error" /></li>--}}
+                        {{--                        <li><x-flash-error :message="$error" /></li>--}}
                     @endforeach
                 </ul>
         @endif
 
-            <!-- Page Heading -->
+        <!-- Page Heading -->
             <header class="bg-white shadow">
                 <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
                     {{ $header }}

@@ -1,11 +1,11 @@
 <x-site-layout>
 
-{{--    <x-site-navigation></x-site-navigation>--}}
+    {{--    <x-site-navigation></x-site-navigation>--}}
 
     <div class="py-6">
         <!-- Breadcrumbs -->
-{{--        <x-site-breadcrumbs></x-site-breadcrumbs>--}}
-        <!-- ./ Breadcrumbs -->
+    {{--        <x-site-breadcrumbs></x-site-breadcrumbs>--}}
+    <!-- ./ Breadcrumbs -->
 
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-6">
             <div class="flex flex-col md:flex-row -mx-4">
@@ -14,7 +14,8 @@
                         <div class="h-64 md:h-80 rounded-lg bg-gray-100 mb-4">
 
                             <template x-for="i in 4">
-                                <div x-show="image === i" class="h-64 md:h-80 rounded-lg bg-gray-100 mb-4 flex items-center justify-center">
+                                <div x-show="image === i"
+                                     class="h-64 md:h-80 rounded-lg bg-gray-100 mb-4 flex items-center justify-center">
                                     <img src="{{ $product->image }}" class="object-cover h-64 w-full">
                                 </div>
                             </template>
@@ -39,7 +40,9 @@
                         <div class="flex -mx-2 mb-4">
                             <template x-for="i in 4">
                                 <div class="flex-1 px-2">
-                                    <button x-on:click="image = i" :class="{ 'ring-2 ring-indigo-300 ring-inset': image === i }" class="focus:outline-none w-full rounded-lg h-12 md:h-12 bg-gray-100 flex items-center justify-center">
+                                    <button x-on:click="image = i"
+                                            :class="{ 'ring-2 ring-indigo-300 ring-inset': image === i }"
+                                            class="focus:outline-none w-full rounded-lg h-12 md:h-12 bg-gray-100 flex items-center justify-center">
                                         <span x-text="i" class="text-2xl"></span>
                                     </button>
                                 </div>
@@ -50,7 +53,9 @@
 
                 <div class="md:flex-1 px-4">
                     <h2 class="mb-2 leading-tight tracking-tight font-bold text-gray-800 text-2xl md:text-3xl">{{ $product->name }}</h2>
-                    <p class="text-gray-500 text-sm">By <a href="#" class="text-indigo-600 hover:underline">{{ $product->brand->name }}</a></p>
+                    <p class="text-gray-500 text-sm">By <a href="#"
+                                                           class="text-indigo-600 hover:underline">{{ $product->brand->name }}</a>
+                    </p>
 
                     <div class="flex items-center space-x-4 my-4">
                         <div>
@@ -69,8 +74,12 @@
 
                     <div class="flex py-4 space-x-4">
                         <div class="relative">
-                            <div class="text-center left-0 pt-2 right-0 absolute block text-xs uppercase text-gray-400 tracking-wide font-semibold">Qty</div>
-                            <select class="cursor-pointer appearance-none rounded-xl border border-gray-200 pl-4 pr-8 h-14 flex items-end pb-1">
+                            <div
+                                class="text-center left-0 pt-2 right-0 absolute block text-xs uppercase text-gray-400 tracking-wide font-semibold">
+                                Qty
+                            </div>
+                            <select
+                                class="cursor-pointer appearance-none rounded-xl border border-gray-200 pl-4 pr-8 h-14 flex items-end pb-1">
                                 <option>1</option>
                                 <option>2</option>
                                 <option>3</option>
@@ -78,12 +87,16 @@
                                 <option>5</option>
                             </select>
 
-                            <svg class="w-5 h-5 text-gray-400 absolute right-0 bottom-0 mb-2 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l4-4 4 4m0 6l-4 4-4-4" />
+                            <svg class="w-5 h-5 text-gray-400 absolute right-0 bottom-0 mb-2 mr-2"
+                                 xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                 stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                      d="M8 9l4-4 4 4m0 6l-4 4-4-4"/>
                             </svg>
                         </div>
 
-                        <button type="button" class="h-14 px-6 py-2 font-semibold rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white">
+                        <button type="button"
+                                class="h-14 px-6 py-2 font-semibold rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white">
                             Add to Cart
                         </button>
                     </div>
@@ -92,5 +105,5 @@
         </div>
 
     </div>
-{{--    <x-site-footer></x-site-footer>--}}
+    {{--    <x-site-footer></x-site-footer>--}}
 </x-site-layout>

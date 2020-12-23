@@ -1,15 +1,14 @@
 <x-admin.admin-layout>
-    <div class="row">
-        <div class="col-lg-12">
-            <strong>Users Management</strong>
+    <x-slot name="header">
+        <div class="flex justify-between">
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+                {{ __('User edit') }}
+            </h2>
             <a class="content-center bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent float-right"
                href="{{route("admin.users.index")}}">Go Back</a>
         </div>
-    </div>
+    </x-slot>
     <div class="card">
-        <div class="card-header">
-            Edit User
-        </div>
         <div class="body">
             <div class="w-full">
                 <form method="POST" action="{{route("admin.users.update",$user->id)}}" class="w-full max-w-lg">

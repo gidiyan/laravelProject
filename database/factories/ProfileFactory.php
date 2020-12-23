@@ -28,7 +28,7 @@ class ProfileFactory extends Factory
             'phone' => $this->faker->e164PhoneNumber,
             'location' => $this->faker->text,
             'bio' => $this->faker->text,
-            'user_id' =>$this->faker->randomElement($users)
+            'user_id' => $this->faker->randomElement($users)
         ];
     }
 }

@@ -54,11 +54,11 @@ Route::get('/shop/product/{id}', [App\Http\Controllers\ShopController::class, 's
 Route::get('/shop/by_brand/{id}', [App\Http\Controllers\ShopController::class, 'getByBrand'])->name('product.by.brand');
 Route::get('/shop/by_category/{id}', [App\Http\Controllers\ShopController::class, 'getByCategory'])->name('product.by.category');
 
-Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request){
-$request->fulfill();
-return redirect('/dashboard');
-})->middleware(['auth','signed'])->name('verification.verify');
-Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request){
+Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+    $request->fulfill();
+    return redirect('/dashboard');
+})->middleware(['auth', 'signed'])->name('verification.verify');
+Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
 
     return redirect('/auth.verify-email');
-})->middleware(['auth','signed'])->name('verification.notice');
+})->middleware(['auth', 'signed'])->name('verification.notice');

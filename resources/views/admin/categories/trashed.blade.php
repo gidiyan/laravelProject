@@ -1,15 +1,11 @@
 <x-admin.admin-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Trashed Categories') }}
-        </h2>
+            {{ __('Trashed Categories') }}</h2>
+        <a class="content-center bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent float-right"
+           href="{{route("admin.categories.index")}}">Go Back</a>
     </x-slot>
     <div class="main-card">
-        <div class="header">
-            Trashed Categories List
-            <a class="content-center bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent float-right"
-               href="{{route("admin.posts.index")}}">Go Back</a>
-        </div>
         <div class="body">
             <div class="w-full">
                 <table class="striped hover border-separate border border-black shadow-2xl">
@@ -33,12 +29,14 @@
                                 <form action="{{route('admin.categories.force', $category->id)}}" method="POST"
                                       style="display: inline-block">
                                     @csrf @method('delete')
-                                    <input type="submit" class="btn-sm btn-red" value="Force Delete">
+                                    <input type="submit" class="btn-sm border border-black rounded bg-red-300"
+                                           value="Force Delete">
                                 </form>
                                 <form action="{{route('admin.categories.restore', $category->id)}}" method="POST"
                                       style="display: inline-block">
                                     @csrf
-                                    <input type="submit" class="btn-sm btn-green" value="Restore Category">
+                                    <input type="submit" class="btn-sm border border-black rounded bg-green-300"
+                                           value="Restore Category">
                                 </form>
                             </td>
                         </tr>

@@ -10,6 +10,7 @@ use Illuminate\Queue\SerializesModels;
 class Reminder extends Mailable
 {
     use Queueable, SerializesModels;
+
     public $event;
 
     /**
@@ -19,7 +20,7 @@ class Reminder extends Mailable
      */
     public function __construct($event)
     {
-        $this->event =$event;
+        $this->event = $event;
     }
 
     /**
@@ -29,9 +30,9 @@ class Reminder extends Mailable
      */
     public function build()
     {
-        return $this->from('hello@test.com','<from App Laravel>')
+        return $this->from('hello@test.com', '<from App Laravel>')
             ->subject("Remember Me")
-            ->view('emails.reminder',['contact'=>"Foo Bar"])
+            ->view('emails.reminder', ['contact' => "Foo Bar"])
             ->text('emails.remember_plane');
     }
 }

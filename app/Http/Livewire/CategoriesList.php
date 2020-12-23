@@ -4,10 +4,9 @@ namespace App\Http\Livewire;
 
 use Livewire\Component;
 use Livewire\WithPagination;
-use App\Models\User;
+use App\Models\Category;
 
-
-class UserList extends Component
+class CategoriesList extends Component
 {
     use WithPagination;
 
@@ -19,8 +18,8 @@ class UserList extends Component
 
     public function render()
     {
-        return view('livewire.user-list', [
-            'users' => User::search($this->search)
+        return view('livewire.categories-list', [
+            'categories' => Category::search($this->search)
                 ->orderBy($this->sortField, $this->sortAsc ? 'asc' : 'desc')
                 ->simplePaginate($this->perPage)
         ]);

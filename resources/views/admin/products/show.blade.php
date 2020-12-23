@@ -1,13 +1,16 @@
 <x-admin.admin-layout>
+    <x-slot name="header">
+        <div class="flex justify-between">
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+                {{ __('Product details') }}
+            </h2>
+            <a class="content-center bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent float-right"
+               href="{{route("admin.products.index")}}">Go Back</a>
+        </div>
+    </x-slot>
     <div class="row">
         <div class="col-lg-12">
-            <strong>Products Management</strong>
-            <a class="btn btn-success float-right" href="{{route("admin.products.index")}}">Go Back</a>
             <div class="main-card">
-                <div class="header">
-                    Create Product
-                    <a class="btn-sm btn-green" href="{{route("admin.products.index")}}">Go Back</a>
-                </div>
                 <div class="body">
                     <div class="w-full">
                         <form method="POST" action="{{route("admin.products.update",$product->id)}}"
@@ -70,6 +73,34 @@
                                     <input type="text"
                                            class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-700 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                            id="image" name="image" disabled value="{{$product->image}}">
+                                </div>
+                            </div>
+                            <div class="flex flex-wrap -mx-3 mb-6">
+                                <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                                    <label for="brand" class="block uppercase tracking-wide text-gray-700 text-xs font-bold
+                               mb-2">Select Brand</label>
+                                    <select name="brand_id" id="brand_id"
+                                            class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-700 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                            disabled>
+                                        @foreach($brands as $brand)
+                                            <option value="{{$brand->id}}"
+                                                    {{ ($brand->id === $product->brand_id)? 'selected':'' }}
+                                                    class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-700 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">{{$brand->name}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                                    <label for="category" class="block uppercase tracking-wide text-gray-700 text-xs font-bold
+                               mb-2">Select Category</label>
+                                    <select name="categories[]" id="categories" multiple
+                                            class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-700 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                            disabled>
+                                        @foreach($categories as $category)
+                                            <option value="{{$category->id}}"
+                                                    {{ ($category->id === $product->category_id)? 'selected':'' }}
+                                                    class="border border-gray-700 rounded">{{$category->name}}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
                             <div class="w-full md:w-1/2 px-3 my-4">

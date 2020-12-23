@@ -1,9 +1,14 @@
 <x-admin.admin-layout>
-    <div class="main-card">
-        <div class="header">
-            Create User
-            <a class="btn-sm btn-green" href="{{route("admin.users.index")}}">Go Back</a>
+    <x-slot name="header">
+        <div class="flex justify-between">
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+                {{ __('User create') }}
+            </h2>
+            <a class="content-center bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent float-right"
+               href="{{route("admin.users.index")}}">Go Back</a>
         </div>
+    </x-slot>
+    <div class="main-card">
         <div class="body">
             <div class="w-full">
                 <form class="w-full max-w-lg" method="POST"

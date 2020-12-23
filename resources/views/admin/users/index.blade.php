@@ -5,7 +5,6 @@
                 {{ __('Users list') }}
             </h2>
             <a class="text-white bg-blue-600 px-2" href="{{ route('admin.users.create') }}">Add New</a>
-
         </div>
     </x-slot>
     <div class="body">
