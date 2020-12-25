@@ -26,7 +26,7 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     protected $fillable = [
         'name',
-        'emails',
+        'email',
         'password',
     ];
 
@@ -64,12 +64,22 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return empty($search) ? static::query() : static::where('id', 'like', '%' . $search . '%')
             ->orWhere('name', 'like', '%' . $search . '%')
-            ->orWhere('emails', 'like', '%' . $search . '%');
+            ->orWhere('email', 'like', '%' . $search . '%');
     }
 
     public function profile()
     {
         return $this->hasOne(Profile::class);
+    }
+
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class);
+    }
+
+    public function getIsAdminAttribute()
+    {
+        return $this->roles()->where('id', 1)->exists();
     }
 }
 

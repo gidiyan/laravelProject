@@ -18,8 +18,8 @@
 
                             </div>
                             <div class="prod-img">
-                                <img src="{{ $product->image}}"
-                                     class="w-full object-cover object-center"/>
+                                <img src="{{$product->pictures[0]->filename ?? ''}}"
+                                     class="w-full object-cover object-center">
                             </div>
                             <div class="prod-info grid gap-10">
                                 <div class="flex flex-col md:flex-row justify-between items-center text-gray-900 mt-2">

@@ -66,12 +66,19 @@
                                 <p class="invalid-feedback">{{ $errors->first('price') }}</p>
                             @endif
                             <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-                                <label for="image"
-                                       class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">Load
-                                    Image</label>
-                                <input type="file"
-                                       class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-700 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                                       id="image" name="image">
+                                <div class="border border-dashed border-gray-500 relative">
+                                    <input type="file" multiple
+                                           class="cursor-pointer relative block opacity-0 w-full h-full p-20 z-50"
+                                           name="images[]">
+                                    <div class="text-center p-10 absolute top-0 right-0 left-0 m-auto">
+                                        <h4>
+                                            Drop files anywhere to upload
+                                            <br/>or
+                                        </h4>
+                                        <p class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-700 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                                            Select Files</p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="flex flex-wrap -mx-3 mb-6">

@@ -28,7 +28,12 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => '\App\Http\C
     Route::delete('posts/force/{id}', 'PostController@force')->name('posts.force');
     Route::resource('posts', 'PostController');
 
-    Route::get('', Dashboard::class)->name('home');
+    Route::get('brands/trashed', 'BrandController@trashed')->name('brands.trashed');
+    Route::post('brands/restore/{id}', 'BrandController@restore')->name('brands.restore');
+    Route::delete('brands/force/{id}', 'BrandController@force')->name('brands.force');
+    Route::resource('brands', 'BrandController');
+
+    Route::get('', 'Dashboard')->name('home');
 
     Route::get('categories/trashed', 'CategoryController@trashed')->name('categories.trashed');
     Route::post('categories/restore/{id}', 'CategoryController@restore')->name('categories.restore');
@@ -54,11 +59,16 @@ Route::get('/shop/product/{id}', [App\Http\Controllers\ShopController::class, 's
 Route::get('/shop/by_brand/{id}', [App\Http\Controllers\ShopController::class, 'getByBrand'])->name('product.by.brand');
 Route::get('/shop/by_category/{id}', [App\Http\Controllers\ShopController::class, 'getByCategory'])->name('product.by.category');
 
+Route::get('/email/verify', function () {
+    return view('auth.verify-email');
+})->middleware(['auth'])->name('verification.notice');
 Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
     $request->fulfill();
     return redirect('/dashboard');
 })->middleware(['auth', 'signed'])->name('verification.verify');
-Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
 
-    return redirect('/auth.verify-email');
-})->middleware(['auth', 'signed'])->name('verification.notice');
+Route::post('/email/verification-notification', function (Request $request) {
+    $request->user()->sendEmailVerificationNotification();
+
+    return back()->with('message', 'Verification link sent!');
+})->middleware(['auth', 'throttle:6,1'])->name('verification.send');

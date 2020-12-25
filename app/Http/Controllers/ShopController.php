@@ -47,7 +47,7 @@ class ShopController extends Controller
      */
     public function show($id)
     {
-        $product = Product::whereId($id)->with('brand')->with('categories')->with('pictures')->firstOrFail();
+        $product = Product::whereId($id)->with('brand')->with('category')->with('pictures')->firstOrFail();
         return view('site.product', compact('product'));
     }
 
@@ -99,7 +99,7 @@ class ShopController extends Controller
 
     public function getByBrand($id)
     {
-        $products = Product::where([['brand_id', $id]])->with('categories')->with('brand')->with('pictures')->paginate(12);
+        $products = Product::where([['brand_id', $id]])->with('category')->with('brand')->with('pictures')->paginate(12);
         return view('site.index', compact('products'));
     }
 }

@@ -29,8 +29,9 @@
             </ul>
         </div>
         <a class="nav-link" href="{{ route('admin.categories.index') }}"><span class="mx-4">Categories</span></a>
-        <a class="nav-link" href="{{ route('admin.posts.index') }}"><span class="mx-4">Posts</span></a>
+        <a class="nav-link" href="{{ route('admin.brands.index') }}"><span class="mx-4">Brands</span></a>
         <a class="nav-link" href="{{ route('admin.products.index') }}"><span class="mx-4">Products</span></a>
+        <a class="nav-link" href="{{ route('admin.posts.index') }}"><span class="mx-4">Posts</span></a>
         <a class="nav-link" href="{{ route('admin.users.index') }}"><span class="mx-4">Users</span></a>
     </nav>
 </div>

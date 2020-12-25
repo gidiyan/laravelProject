@@ -49,6 +49,18 @@
 
             <!-- Page Content -->
             <main>
+                @if(session('message'))
+                    <x-flash-success :message="session('message')"></x-flash-success>
+                @endif
+                @if($errors->count()>0)
+                    <ul class="list-unstyled">
+                        @foreach($errors->all() as $error)
+                            <li>
+                                <x-flash-error :message="$error"></x-flash-error>
+                            </li>
+                        @endforeach
+                    </ul>
+                @endif
                 {{ $slot }}
             </main>
         </div>

@@ -1,44 +1,26 @@
 <x-site-layout>
-
-    {{--    <x-site-navigation></x-site-navigation>--}}
-
+    <x-site-navigation></x-site-navigation>
     <div class="py-6">
         <!-- Breadcrumbs -->
-    {{--        <x-site-breadcrumbs></x-site-breadcrumbs>--}}
-    <!-- ./ Breadcrumbs -->
-
+        <x-site-breadcrumbs></x-site-breadcrumbs>
+        <!-- ./ Breadcrumbs -->
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-6">
             <div class="flex flex-col md:flex-row -mx-4">
-                <div class="md:flex-1 px-4" x-data="{pictures: {{ $product->pictures }}}">
+                <div class="md:flex-1 px-4">
                     <div x-data="{ image: 1 }" x-cloak>
                         <div class="h-64 md:h-80 rounded-lg bg-gray-100 mb-4">
-
-                            <template x-for="i in 4">
-                                <div x-show="image === i"
+                            @for ($pic =1,$picMax = count($product->pictures); $pic<$picMax;  $pic++)
+                                {{-- <template x-show="image === {{ $pic }}" x-data="i: {{ $pic }}"> --}}
+                                <div x-show="image === {{ $pic }}"
                                      class="h-64 md:h-80 rounded-lg bg-gray-100 mb-4 flex items-center justify-center">
-                                    <img src="{{ $product->image }}" class="object-cover h-64 w-full">
+                                    <img src="{{ $product->pictures[$pic]->filename }}"
+                                         class="object-cover h-64 w-full">
                                 </div>
-                            </template>
-
-                            {{-- <div x-show="image === 1" class="h-64 md:h-80 rounded-lg bg-gray-100 mb-4 flex items-center justify-center">
-                                <img src="{{ $product->pictures[0]->filename ?? null }}" class="object-cover h-64 w-full">
-                            </div>
-
-                            <div x-show="image === 2" class="h-64 md:h-80 rounded-lg bg-gray-100 mb-4 flex items-center justify-center">
-                             <img src="{{ $product->pictures[1]->filename ?? null }}" class="object-cover h-64 w-full">
-                            </div>
-
-                            <div x-show="image === 3" class="h-64 md:h-80 rounded-lg bg-gray-100 mb-4 flex items-center justify-center">
-                             <img src="{{ $product->pictures[2]->filename ?? null }}" class="object-cover h-64 w-full">
-                            </div>
-
-                            <div x-show="image === 4" class="h-64 md:h-80 rounded-lg bg-gray-100 mb-4 flex items-center justify-center">
-                             <img src="{{ $product->pictures[3]->filename ?? null }}" class="object-cover h-64 w-full">
-                            </div> --}}
+                                {{-- </template> --}}
+                            @endfor
                         </div>
-
                         <div class="flex -mx-2 mb-4">
-                            <template x-for="i in 4">
+                            <template x-for="i in {{count($product->pictures) }}">
                                 <div class="flex-1 px-2">
                                     <button x-on:click="image = i"
                                             :class="{ 'ring-2 ring-indigo-300 ring-inset': image === i }"
@@ -50,13 +32,11 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="md:flex-1 px-4">
                     <h2 class="mb-2 leading-tight tracking-tight font-bold text-gray-800 text-2xl md:text-3xl">{{ $product->name }}</h2>
                     <p class="text-gray-500 text-sm">By <a href="#"
                                                            class="text-indigo-600 hover:underline">{{ $product->brand->name }}</a>
                     </p>
-
                     <div class="flex items-center space-x-4 my-4">
                         <div>
                             <div class="rounded-lg bg-gray-100 flex py-2 px-3">
@@ -69,9 +49,7 @@
                             <p class="text-gray-400 text-sm">Inclusive of all Taxes.</p>
                         </div>
                     </div>
-
                     <p class="text-gray-500">{{ $product->description }}</p>
-
                     <div class="flex py-4 space-x-4">
                         <div class="relative">
                             <div
@@ -86,7 +64,6 @@
                                 <option>4</option>
                                 <option>5</option>
                             </select>
-
                             <svg class="w-5 h-5 text-gray-400 absolute right-0 bottom-0 mb-2 mr-2"
                                  xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                  stroke="currentColor">
@@ -94,7 +71,6 @@
                                       d="M8 9l4-4 4 4m0 6l-4 4-4-4"/>
                             </svg>
                         </div>
-
                         <button type="button"
                                 class="h-14 px-6 py-2 font-semibold rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white">
                             Add to Cart
@@ -103,7 +79,6 @@
                 </div>
             </div>
         </div>
-
     </div>
-    {{--    <x-site-footer></x-site-footer>--}}
+    <x-site-footer></x-site-footer>
 </x-site-layout>

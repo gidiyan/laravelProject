@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\User;
+use App\Models\{User, Profile, Role};
+use Illuminate\Support\Facades\Gate;
+use Symfony\Component\HttpFoundation\Response;
 
 class UserController extends Controller
 {
@@ -15,6 +17,7 @@ class UserController extends Controller
      */
     public function index()
     {
+        abort_if(Gate::denies('user_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         $users = User::paginate(7);
         return view('admin.users.index', compact('users'));
     }
@@ -37,7 +40,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        User::create(['name' => $request->name, 'emails' => $request->email, 'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi']);
+        User::create(['name' => $request->name, 'email' => $request->email, 'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi']);
         return redirect()->route('admin.users.index');
     }
 
@@ -72,7 +75,7 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        $user->update(['name' => $request->name, 'emails' => $request->email]);
+        $user->update(['name' => $request->name, 'email' => $request->email]);
     }
 
     /**
