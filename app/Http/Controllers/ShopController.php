@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\{Product, Brand, Category};
+use Cart;
 
 class ShopController extends Controller
 {
@@ -55,12 +56,15 @@ class ShopController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param int $id
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function addToCart(Request $request)
     {
-        //
+        $product = Product::whereId($request->input('productId'))->with('pictures')->firstOrFail();
+        $options = ['picture' => $product->pictures[0]->filename];
+        Cart::add(uniqid(), $product->name, $request->input('price'), $request->input('quantity'), $options);
+        return redirect()->back()->with('message', 'Product added to cart successfully');
     }
 
     /**

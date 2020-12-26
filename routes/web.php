@@ -58,6 +58,15 @@ Route::get('/shop', 'App\Http\Controllers\ShopController@index')->name('shop.ind
 Route::get('/shop/product/{id}', [App\Http\Controllers\ShopController::class, 'show'])->name('shop.product');
 Route::get('/shop/by_brand/{id}', [App\Http\Controllers\ShopController::class, 'getByBrand'])->name('product.by.brand');
 Route::get('/shop/by_category/{id}', [App\Http\Controllers\ShopController::class, 'getByCategory'])->name('product.by.category');
+Route::post('product/add/cart', [App\Http\Controllers\ShopController::class, 'addToCart'])->name('product.add.cart');
+
+Route::get('cart', [App\Http\Controllers\CartController::class, 'getCart'])->name('checkout.cart');
+Route::get('/cart/item/{id}/remove', [App\Http\Controllers\CartController::class, 'removeItem'])->name('checkout.cart.remove');
+Route::get('/cart/clear', [App\Http\Controllers\CartController::class, 'clearCart'])->name('checkout.cart.clear');
+
+Route::get('/checkout', [App\Http\Controllers\CheckoutController::class, 'getCheckout'])->name('checkout.index');
+Route::post('/checkout/order', [App\Http\Controllers\CheckoutController::class, 'placeOrder'])->name('checkout.place.order');
+Route::get('checkout/payment/complete', [App\Http\Controllers\CheckoutController::class, 'complete'])->name('checkout.payment.complete');
 
 Route::get('/email/verify', function () {
     return view('auth.verify-email');

@@ -13,9 +13,9 @@
     {{-- Intro Lines --}}
     @foreach ($introLines as $line)
         {{ $line }}
-
     @endforeach
-
+    <br>
+    ## Tag
     {{-- Action Button --}}
     @isset($actionText)
         <?php
@@ -43,7 +43,7 @@
     @if (! empty($salutation))
         {{ $salutation }}
     @else
-        @lang('Regards'),<br>
+        @lang('Regards')
         {{ config('app.name') }}
     @endif
 
