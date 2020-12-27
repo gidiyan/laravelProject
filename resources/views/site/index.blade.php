@@ -49,7 +49,7 @@
                                     </ul>
                                 </div>
                                 <div class="flex flex-col md:flex-row justify-between items-center text-gray-900">
-                                    <p class="font-bold text-xl">${{ $product->price }}</p>
+                                    <p class="font-bold text-xl">{{ config('settings.currency_symbol', '$') }}{{ $product->price }}</p>
                                     <form action="{{ route('product.add.cart') }}" method="POST" role="form"
                                           id="addToCart">
                                         @csrf

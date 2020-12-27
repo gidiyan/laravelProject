@@ -14,8 +14,7 @@
     @foreach ($introLines as $line)
         {{ $line }}
     @endforeach
-    <br>
-    ## Tag
+
     {{-- Action Button --}}
     @isset($actionText)
         <?php

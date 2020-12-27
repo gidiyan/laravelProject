@@ -38,7 +38,7 @@
                                         </td>
                                         <td>
                                             <div class="price-wrap text-center">
-                                                <var class="price">{{ '$'. $item->price }}</var>
+                                                <var class="price">{{ config('settings.currency_symbol'). $item->price }}</var>
                                                 <small class="text-muted">each</small>
                                             </div>
                                         </td>
@@ -72,3 +72,5 @@
         </div>
     </div>
 </x-site-layout>
+
+
